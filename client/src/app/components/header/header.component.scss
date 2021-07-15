@@ -1,0 +1,13 @@
+:host {
+    grid-area: header;
+
+    header {
+        line-height: 4em;
+        padding: 0 1em;
+    }
+
+    mat-icon {
+        vertical-align: baseline;
+    }
+}
+

@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+    mongo:
+        network_mode: "host"
+        image : mongo
+        container_name: "MNA_Mongo"
+        environment:
+        - PUID=1000
+        - PGID=1000
+        volumes:
+        - ./data:/data/db
+    deno:
+        build: .
+        network_mode: "host"
+        container_name: "MNA_Deno"
+        volumes: 
+        - ./server:/app
+        - ./common:/common
+        command: sh -c "denon run --allow-net --unstable index.ts"
+        

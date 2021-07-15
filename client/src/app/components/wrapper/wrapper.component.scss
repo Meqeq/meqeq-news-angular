@@ -1,0 +1,10 @@
+
+.wrapper {
+    width: calc(100% - 2em);
+
+    @media (min-width: 768px) {
+        & {
+            width: 30em;
+        }
+    }
+}

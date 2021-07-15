@@ -1,0 +1,25 @@
+<nav class="bg-white h-full shadow-lg {{menuOpen ? 'show' : ''}}">
+    <div class="h-16 border-b-4 border-teal-400 text-center">
+        <span class="text-lg">
+            Witaj, {{ username | async }}
+        </span>
+    </div>
+
+    <ul>
+        <a routerLink="/main">
+            <li>
+                <span>Strona główna</span>
+            </li>
+        </a>
+        <a routerLink="/register">
+            <li></li>
+        </a>
+        <a routerLink="/register">
+            <li></li>
+        </a>
+        <a routerLink="/register">
+            <li></li>
+        </a>
+    </ul>
+</nav>
+<div *ngIf="menuOpen" class="fog fixed top-0 left-0 bg-black w-screen h-screen" (click)="toggleMenu()"></div>

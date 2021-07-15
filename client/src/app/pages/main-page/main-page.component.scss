@@ -1,0 +1,7 @@
+.wrapper {
+    grid-template: 4em 1fr 3em / 0em 1fr;
+    grid-template-areas: "nav header" "nav main" "nav footer";
+    background: #F0F2F0;
+    background: -webkit-linear-gradient(45deg, #000C40, #F0F2F0);  
+    background: linear-gradient(45deg, #000C40, #F0F2F0); 
+}

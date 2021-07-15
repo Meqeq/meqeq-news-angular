@@ -1,0 +1,34 @@
+<app-wrapper title="Zaloguj się">
+    <form [formGroup]="form" (ngSubmit)="login()">
+        <mat-form-field appearance="standard" class="w-full">
+            <mat-label>Nazwa użytkownika</mat-label>
+            <input matInput placeholder="Nazwa użytkownika" formControlName="username">
+            <mat-error *ngIf="username.invalid && username.touched"> 
+                Nazwa użytkownika powinna zawierać od 5 do 30 znaków
+            </mat-error>
+        </mat-form-field>
+
+        <br />
+
+        <mat-form-field appearance="standard" class="w-full">
+            <mat-label>Hasło</mat-label>
+            <input type="password" matInput placeholder="Hasło" formControlName="password">
+            <mat-error *ngIf="password.invalid && password.touched"> 
+                Hasło powinno zawierać od 5 do 30 znaków
+            </mat-error>
+        </mat-form-field>
+
+        <br />
+
+        <hr class="my-4" />
+
+        <div class="h-8 text-center">
+            <mat-error *ngIf="form.errors && form.errors.authError"> 
+                {{ form.errors.authError | authErrors }}
+            </mat-error>
+        </div>
+        
+        <button type="submit" mat-raised-button color="primary" class="w-full" [disabled]="!form.valid">Zaloguj</button>
+    </form>
+</app-wrapper>
+

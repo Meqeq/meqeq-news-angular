@@ -1,0 +1,16 @@
+.background {
+    position: relative;
+
+    &::before {
+        position: absolute;
+        background-image: url("./news.jpg");
+        background-position: center;
+        background-size: cover;
+        filter: blur(4px);
+        display: block;
+        content: '';
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+    }
+}

@@ -1,0 +1,6 @@
+<div class="wrapper h-screen grid">
+    <app-header (menuToggle)="toggleMenu()"></app-header>
+    <app-side-nav [menuOpen]="menuOpen" (menuToggle)="toggleMenu()"></app-side-nav>
+    <app-summary></app-summary>
+
+</div>

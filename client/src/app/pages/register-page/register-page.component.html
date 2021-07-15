@@ -1,0 +1,61 @@
+<app-wrapper title="Zarejestruj się">
+    <form [formGroup]="form" (ngSubmit)="register()">
+        <mat-form-field appearance="standard" class="w-full">
+            <mat-label>Nazwa użytkownika</mat-label>
+            <input matInput placeholder="Nazwa użytkownika" formControlName="username">
+            <mat-error *ngIf="username.invalid && username.touched"> 
+                Nazwa użytkownika powinna zawierać od 5 do 30 znaków
+            </mat-error>
+        </mat-form-field>
+
+        <br />
+
+        <mat-form-field appearance="standard" class="w-full">
+            <mat-label>Pseudonim</mat-label>
+            <input matInput placeholder="Pseudonim" formControlName="nick">
+            <mat-error *ngIf="username.invalid && username.touched"> 
+                Pseudonim powinien zawierać od 5 do 30 znaków
+            </mat-error>
+        </mat-form-field>
+
+        <br />
+
+        <mat-form-field appearance="standard" class="w-full">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Email" formControlName="email">
+            <mat-error *ngIf="email.invalid && email.touched"> 
+                Niepoprawny mail
+            </mat-error>
+        </mat-form-field>
+
+        <br />
+
+        <mat-form-field appearance="standard" class="w-full">
+            <mat-label>Hasło</mat-label>
+            <input type="password" matInput placeholder="Hasło" formControlName="password">
+            <mat-error *ngIf="password.invalid && password.touched"> 
+                Hasło powinno zawierać od 5 do 30 znaków
+            </mat-error>
+        </mat-form-field>
+
+        <br />
+
+        <mat-form-field appearance="standard" class="w-full">
+            <mat-label>Powtórz hasło</mat-label>
+            <input type="password" matInput placeholder="Powtórz hasło" formControlName="password2">
+            <mat-error *ngIf="form.errors?.confirmPassword"> 
+                Hasła się nie zgadzają
+            </mat-error>
+        </mat-form-field>
+
+        <hr class="my-4" />
+
+        <div class="h-8 text-center">
+            <mat-error *ngIf="form.errors && form.errors.authError"> 
+                {{ form.errors.authError | authErrors }}
+            </mat-error>
+        </div>
+
+        <button type="submit" mat-raised-button color="primary" class="w-full" [disabled]="!form.valid">Zarejestruj</button>
+    </form>
+</app-wrapper>

@@ -1,0 +1,24 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+html {
+    font-size: calc(12px + (18 - 12) * ((100vw - 360px) / (1600 - 360)));
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+}
+html, body { height: 100%; }
+body { margin: 0; }
+
+@import '~@angular/material/theming';
+@include mat-core();
+
+$primary: mat-palette($mat-teal, 200);
+$accent:  mat-palette($mat-blue, 200);
+$warn:    mat-palette($mat-red);
+$theme: mat-light-theme($primary, $accent, $warn);
+
+@include angular-material-theme($theme);
