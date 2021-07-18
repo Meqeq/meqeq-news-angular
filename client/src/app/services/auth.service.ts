@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParamsOptions } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, pipe, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -67,5 +67,21 @@ export class AuthService {
             catchError(this.handleError),
             tap(this.setLogin)
         )
+    }
+
+    fetchApiGet<T>(url: string) {
+        return this.http.get<T>(this.api + url, {
+            headers: {
+                "Authorization": "Bearer " + this._token.getValue()
+            }
+        });
+    }
+
+    fetchApiPost<T>(url: string, body?: any) {
+        return this.http.post<T>(this.api + url, body, {
+            headers: {
+                "Authorization": "Bearer " + this._token.getValue()
+            }
+        });
     }
 }

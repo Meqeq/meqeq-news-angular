@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar'; 
 import { MatIconModule } from '@angular/material/icon'; 
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +25,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { SummaryComponent } from './components/summary/summary.component';
 import { PanelComponent } from './components/panel/panel.component';
+import { PanelDirective } from './directives/panel.directive';
+import { RssReaderComponent } from './components/rss-reader/rss-reader.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,9 @@ import { PanelComponent } from './components/panel/panel.component';
     HeaderComponent,
     SideNavComponent,
     SummaryComponent,
-    PanelComponent
+    PanelComponent,
+    PanelDirective,
+    RssReaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +55,8 @@ import { PanelComponent } from './components/panel/panel.component';
     MatButtonModule,
     HttpClientModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

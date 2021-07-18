@@ -1,5 +1,20 @@
 <main class="p-4 summary w-full h-full grid" 
     [ngStyle]="{ 'grid-template-columns': 'repeat(' + cols + ', 1fr)', 'grid-template-rows': 'repeat(' + rows + ', 1fr)' }"
 >
-
+    <div class="editable-switch">
+        <div *ngIf="!editable" class="icon">
+            <mat-icon (click)="editable = !editable">settings</mat-icon>
+        </div>
+        <div *ngIf="editable" class="icon">
+            <mat-icon>check</mat-icon>
+        </div>
+    </div>
+    <app-rss-reader *ngFor="let panel of panels; let i = index" appPanel 
+        [pos]="panel.pos" [size]="panel.size" [editable]="editable" 
+        [blockSize]="[totalSize[0]  / this.rows, totalSize[1] / this.cols]"
+        (resize)="handlePanelResize(i, $event)"
+        (changePos)="handlePosChange(i, $event)"
+    >
+    <input type="text" [(ngModel)]="panels[i].src" class="w-full" placeholder="Adres kanału RSS"/>
+    </app-rss-reader>
 </main>

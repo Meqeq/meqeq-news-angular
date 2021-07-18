@@ -3,7 +3,7 @@ import * as bcrypt from "https://deno.land/x/bcrypt/mod.ts";
 import { getAll, save, getByUsername, getByEmail } from '../database/user.ts';
 import { create } from '../jwt.ts';
 import { AuthCodes, RegisterResponse, LoginResponse, ErrorResponse } from '../../common/auth.ts';
-
+import { secretKey } from '../secret.ts';
 
 class AuthError extends Error {
     readonly type = "auth";
@@ -57,10 +57,10 @@ router.post("/login", async (req, res, next, params) => {
             throw new AuthError(AuthCodes.WrongPassword, 400, "Incorrect username or password");
 
         const data = {
-            iss: username,
+            iss: user._id.$oid,
         };
 
-        const token = create(data, "HS512", "karwasztwarz", 60*60*24);
+        const token = create(data, "HS512", secretKey, 60*60*24);
 
         const response : LoginResponse = {
             ok: true, token, username

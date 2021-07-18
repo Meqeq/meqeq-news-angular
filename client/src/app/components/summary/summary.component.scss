@@ -1,8 +1,31 @@
 :host {
     grid-area: main;
+    overflow: hidden;
 }
 
 .summary {
     grid-gap: 1em;
     overflow: hidden;
+    position: relative;
+}
+
+.editable-switch {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4em;
+    height: 4em;
+
+    .icon {
+        opacity: 0;
+        font-size: 1.5em;
+        transition: 0.3s opacity ease-in-out;
+        display: flex;
+        justify-content: right;
+        cursor: pointer;
+    }
+
+    &:hover .icon {
+        opacity: 1;
+    }
 }

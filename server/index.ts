@@ -1,7 +1,8 @@
 import meqeq from './meqeq.ts';
 import auth from './routes/auth.ts';
-import { TextResponse } from '../common/responses.ts';
-
+import { Panel, RssResponse } from '../common/rss.ts';
+import { getAuth } from "./jwt.ts";
+import { getByUserId, Panels, save } from './database/panels.ts';
 
 const app = new meqeq(8000);
 
@@ -27,6 +28,8 @@ app.get("/", async (req, res) => {
 
 app.post("/api/rss", async(req, res, next, params) => {
     try {
+        const user = getAuth(req.headers.get("Authorization") || "");
+
         const path = params.get("path");
 
         if(!path)
@@ -34,9 +37,56 @@ app.post("/api/rss", async(req, res, next, params) => {
 
         const result = await fetch(path);
 
-        const response : TextResponse = {
+        const response : RssResponse = {
             text: await result.text()
         }
+
+        res.json(response);
+
+    } catch(e) {
+        console.log(e);
+    }
+});
+
+app.get("/api/panels", async(req, res, next, params) => {
+    try {
+        const user = getAuth(req.headers.get("Authorization") || "");
+
+        const panels = await getByUserId(user.iss as string);
+
+        const response: Panel[] = panels ? panels.panels : [];
+
+        res.json(response);
+
+    } catch(e) {
+        console.log(e);
+    }
+});
+
+app.post("/api/panels", async(req, res, next, params) => {
+    try {
+
+        const user = getAuth(req.headers.get("Authorization") || "");
+
+        const panels = await getByUserId(user.iss as string);
+
+        const input = params.get("panels");
+        
+        if(!panels) {
+            let pans: Panels = {
+                userId: user.iss as string,
+                panels: []
+            }
+
+            await save(pans);
+        } else {
+            if(input) {
+                panels.panels = JSON.parse(input);
+            }
+        }
+
+
+        const response: Panel[] = panels ? panels.panels : [];
 
         res.json(response);
 

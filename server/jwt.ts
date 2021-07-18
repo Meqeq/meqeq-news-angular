@@ -1,6 +1,7 @@
 import { HmacSha512 } from 'https://deno.land/std/hash/sha512.ts';
 import { HmacSha256 } from 'https://deno.land/std/hash/sha256.ts'
 import { encode as enc } from "https://deno.land/std/encoding/base64url.ts";
+import { secretKey } from "./secret.ts";
 
 export interface Header {
     typ: string;
@@ -38,7 +39,7 @@ export const createSignature = (token: string, algorithm: string, secret: string
 export const create = (data: TokenData, algorithm: string, secret: string, exp: number) => {
     const token = {
         ...data,
-        exp: Date.now() + exp,
+        exp: Date.now() + exp*1000,
         iat: Date.now()
     }
 
@@ -74,6 +75,17 @@ export const decode = (token: string, algorithm: string, secret: string) => {
         throw new Error("Invalid signature");
 
     return <Token>JSON.parse(atob(dataPart));
+}
+
+export const getAuth = (bearer: string) => {
+    const user = decode(bearer.split(" ")[1], "HS512", secretKey);
+
+    console.log(user.exp, Date.now());
+
+    /*if(user.exp > Date.now())
+        throw new Error("Token expired");*/
+
+    return user;
 }
 
 

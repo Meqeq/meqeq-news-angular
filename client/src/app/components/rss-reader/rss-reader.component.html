@@ -1,0 +1,12 @@
+<div class="bg-white h-full p-4 border-b-4 border-teal-200 overflow-y-scroll">
+    <ng-content *ngIf="editable"></ng-content>
+    <p *ngIf="loading"> Ładowanie </p>
+    <div *ngFor="let item of feed" class="my-4">
+        <h2 class="font-bold text-xl my-2">{{item.title}}</h2>
+        <img src="{{item.enclosure}}" class="h-32 m-auto my-4" />
+        <p>{{item.description}}</p>
+        <p>{{item.pubDate | date: 'medium'}}</p>
+        <a href="{{item.link}}" class="text-teal-700">Czytaj dalej...</a>
+        <hr class="my-4" />
+    </div>
+</div>
