@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -16,9 +17,15 @@ export class SideNavComponent implements OnInit {
 
     username = this.auth.username;
 
-    constructor(private auth: AuthService) { }
+    constructor(private auth: AuthService, private  router: Router) { }
 
     ngOnInit(): void {
+    }
+
+    logout() {
+        this.auth.logout();
+        console.log("ddddd");
+        this.router.navigate(["/"]);
     }
 
 }

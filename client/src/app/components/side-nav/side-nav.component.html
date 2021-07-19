@@ -11,8 +11,10 @@
                 <span>Strona główna</span>
             </li>
         </a>
-        <a routerLink="/register">
-            <li></li>
+        <a (click)="logout()">
+            <li>
+                <span>Wyloguj się</span>
+            </li>
         </a>
         <a routerLink="/register">
             <li></li>
@@ -20,6 +22,11 @@
         <a routerLink="/register">
             <li></li>
         </a>
+        <a routerLink="/register">
+            <li></li>
+        </a>
+
+
     </ul>
 </nav>
 <div *ngIf="menuOpen" class="fog fixed top-0 left-0 bg-black w-screen h-screen" (click)="toggleMenu()"></div>

@@ -84,4 +84,14 @@ export class AuthService {
             }
         });
     }
+
+    logout() {
+        this._logged.next(false);
+        this._token.next("");
+        this._username.next("res.username");
+
+        localStorage.removeItem("loginData");
+
+        
+    }
 }

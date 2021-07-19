@@ -74,7 +74,7 @@ app.post("/api/panels", async(req, res, next, params) => {
         if(!panels) {
             let pans: Panels = {
                 userId: user.iss as string,
-                panels: []
+                panels: input
             }
             
             await save(pans);
