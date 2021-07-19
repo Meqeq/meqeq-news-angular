@@ -2,7 +2,7 @@ import meqeq from './meqeq.ts';
 import auth from './routes/auth.ts';
 import { Panel, RssResponse } from '../common/rss.ts';
 import { getAuth } from "./jwt.ts";
-import { getByUserId, Panels, save } from './database/panels.ts';
+import { getByUserId, Panels, save, update } from './database/panels.ts';
 
 const app = new meqeq(8000);
 
@@ -69,20 +69,22 @@ app.post("/api/panels", async(req, res, next, params) => {
         const user = getAuth(req.headers.get("Authorization") || "");
 
         const panels = await getByUserId(user.iss as string);
-
-        const input = params.get("panels");
+        const input = params.get("panels") as unknown as Panel[];
         
         if(!panels) {
             let pans: Panels = {
                 userId: user.iss as string,
                 panels: []
             }
-
+            
             await save(pans);
         } else {
             if(input) {
-                panels.panels = JSON.parse(input);
+                panels.userId = user.iss as string;
+                panels.panels = input;
             }
+
+            await update(panels);
         }
 
 

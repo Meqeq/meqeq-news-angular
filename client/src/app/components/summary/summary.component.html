@@ -5,15 +5,19 @@
         <div *ngIf="!editable" class="icon">
             <mat-icon (click)="editable = !editable">settings</mat-icon>
         </div>
-        <div *ngIf="editable" class="icon">
+        <div *ngIf="editable" class="icon" (click)="add()">
+            <mat-icon>add</mat-icon>
+        </div>
+        <div *ngIf="editable" class="icon" (click)="save()">
             <mat-icon>check</mat-icon>
         </div>
     </div>
     <app-rss-reader *ngFor="let panel of panels; let i = index" appPanel 
-        [pos]="panel.pos" [size]="panel.size" [editable]="editable" 
+        [pos]="panel.pos" [size]="panel.size" [editable]="editable" [src]="panel.src"
         [blockSize]="[totalSize[0]  / this.rows, totalSize[1] / this.cols]"
         (resize)="handlePanelResize(i, $event)"
         (changePos)="handlePosChange(i, $event)"
+        (onRemove)="handlePanelRemove(i)"
     >
     <input type="text" [(ngModel)]="panels[i].src" class="w-full" placeholder="Adres kanału RSS"/>
     </app-rss-reader>

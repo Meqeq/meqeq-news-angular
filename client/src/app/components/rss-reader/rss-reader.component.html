@@ -1,4 +1,12 @@
-<div class="bg-white h-full p-4 border-b-4 border-teal-200 overflow-y-scroll">
+<div class="bg-white h-full p-4 border-b-4 border-teal-200 overflow-y-scroll relative">
+    <div class="editable-switch">
+        <div *ngIf="editable" class="icon" (click)="remove()">
+            <mat-icon>remove</mat-icon>
+        </div>
+        <div *ngIf="!editable" class="icon" (click)="refresh()">
+            <mat-icon>refresh</mat-icon>
+        </div>
+    </div>
     <ng-content *ngIf="editable"></ng-content>
     <p *ngIf="loading"> Ładowanie </p>
     <div *ngFor="let item of feed" class="my-4">

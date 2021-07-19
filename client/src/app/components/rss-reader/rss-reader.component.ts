@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { RssService } from 'src/app/services/rss.service';
 import { RssItem } from '../../../../../common/rss';
@@ -12,6 +12,9 @@ export class RssReaderComponent implements OnInit {
     private subscriptions = new Subscription();
 
     @Input() editable = false;
+    @Input() src = "";
+
+    @Output() onRemove = new EventEmitter();
 
     feed: RssItem[] = [];
     loading = true;
@@ -21,14 +24,25 @@ export class RssReaderComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.subscriptions.add(this.rss.getRss("https://www.polsatnews.pl/rss/wszystkie.xml").subscribe(res => {
-            this.feed = res;
-            this.loading = false;
-        }));
+        if(this.src !== "")
+            this.subscriptions.add(this.rss.getRss(this.src).subscribe(res => {
+                this.feed = res;
+                this.loading = false;
+            }));
     }
 
     ngOnDestroy(): void {
         this.subscriptions.unsubscribe();
     }
 
+    remove() {
+        this.onRemove.emit();
+    }
+
+    refresh() {
+        this.subscriptions.add(this.rss.getRss(this.src).subscribe(res => {
+            this.feed = res;
+            this.loading = false;
+        }));
+    }
 }

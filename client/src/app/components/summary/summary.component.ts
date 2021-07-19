@@ -35,7 +35,7 @@ export class SummaryComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.subscriptions.add(this.panelsService.getPanels().subscribe(res => {
-            console.log(res);
+            this.panels = res;
         }));
     }
 
@@ -54,6 +54,24 @@ export class SummaryComponent implements OnInit, OnDestroy {
         if(newPos[1] > this.rows) newPos[1] = this.rows;
 
         this.panels[index].pos = newPos;
+    }
+
+    save() {
+        this.subscriptions.add(this.panelsService.savePanels(this.panels).subscribe(res => {
+            console.log(res);
+            this.editable = false;
+        }));
+    }
+
+    add() {
+        this.panels = [...this.panels, { pos: [1, 1], size: [3, 3], src: ""}];
+    }
+
+    handlePanelRemove(index: number) {
+        this.panels = [
+            ...this.panels.slice(0, index),
+            ...this.panels.slice(index+1)
+        ]
     }
 
     ngOnDestroy() {

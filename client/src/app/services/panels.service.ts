@@ -14,4 +14,8 @@ export class PanelsService {
     getPanels() {
         return this.auth.fetchApiGet<Panel[]>("/panels");
     }
+
+    savePanels(panels: Panel[]) {
+        return this.auth.fetchApiPost<Panel[]>("/panels", { panels });
+    }
 }

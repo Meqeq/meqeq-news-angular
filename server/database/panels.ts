@@ -21,6 +21,12 @@ export const save = (pans: Panels) => {
     return panels.insertOne(pans);
 }
 
+export const update = (pans: PanelsSchema) => {
+
+    console.log(pans);
+    return panels.updateOne({ _id: pans._id }, { $set: { ...pans } });
+}
+
 export const getByUserId = (userId: string) => {
     return panels.findOne({ userId });
 }
